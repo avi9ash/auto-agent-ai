@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,13 +20,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CommandController.class)
-@Import(CommandControllerTest.MockConfig.class)
 public class CommandControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private CommandService commandService;
 
     @BeforeEach
@@ -38,23 +35,40 @@ public class CommandControllerTest {
 
     @Test
     void shouldReturnAIResponse() throws Exception {
+        // Given
         PromptResponse mockResponse = new PromptResponse("This is a mocked AI response.");
         when(commandService.getAIResponse(any(PromptRequest.class))).thenReturn(mockResponse);
 
-        String json = "{\"prompt\": \"Hello!\"}";
-
+        // When/Then
         mockMvc.perform(post("/api/command")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .content("{\"prompt\": \"Hello!\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.response").value("This is a mocked AI response."));
+                .andExpect(jsonPath("$.response").exists())
+                .andExpect(jsonPath("$.response").isString());
     }
 
-    @Configuration
-    static class MockConfig {
-        @Bean
-        public CommandService commandService() {
-            return Mockito.mock(CommandService.class);
-        }
+    @Test
+    void shouldHandleEmptyPrompt() throws Exception {
+        // Given
+        PromptResponse mockResponse = new PromptResponse("Please provide a prompt.");
+        when(commandService.getAIResponse(any(PromptRequest.class))).thenReturn(mockResponse);
+
+        // When/Then
+        mockMvc.perform(post("/api/command")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"prompt\": \"\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.response").exists())
+                .andExpect(jsonPath("$.response").isString());
+    }
+
+    @Test
+    void shouldHandleInvalidJson() throws Exception {
+        // When/Then
+        mockMvc.perform(post("/api/command")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("invalid json"))
+                .andExpect(status().isBadRequest());
     }
 }

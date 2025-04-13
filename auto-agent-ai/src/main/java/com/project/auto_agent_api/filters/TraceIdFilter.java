@@ -18,11 +18,11 @@ public class TraceIdFilter implements Filter {
         String traceId = UUID.randomUUID().toString();
         request.setAttribute("traceId", traceId);
         System.out.println("TraceID: " + traceId + " for " + request.getRequestURI());
+        
+        // Call chain.doFilter only once
         chain.doFilter(req, res);
+        
         long duration = System.currentTimeMillis() - startTime;
         System.out.println("Request took: " + duration + "ms");
-        chain.doFilter(req, res);
-
     }
-
 }
