@@ -3,6 +3,7 @@ package com.project.auto_agent_api.controller;
 import com.project.auto_agent_api.model.PromptRequest;
 import com.project.auto_agent_api.model.PromptResponse;
 import com.project.auto_agent_api.service.CommandService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class CommandController {
     CommandService commandService;
 
     @PostMapping("/command")
-    public PromptResponse handleCommand(@RequestBody PromptRequest request) {
+    public PromptResponse handleCommand(@Valid @RequestBody PromptRequest request) {
         return commandService.getAIResponse(request);
     }
 
