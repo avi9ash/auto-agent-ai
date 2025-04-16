@@ -6,10 +6,10 @@ AI-powered personal assistant that understands natural language commands and tak
 - GPT-3.5 Turbo (OpenAI)
 - Flask + Python (AI Core)
 - Spring Boot + Java (API Gateway)
-- Zapier NLA (Email + Calendar Integration)
+- Zapier Zaps (Email + Whatsapp Integration)
 
 ## 🚀 Features
-- `/prompt`: Accepts natural language and returns GPT-powered response
+- `/ask`: Accepts natural language and returns GPT-powered response
 - TODO: Spring Boot wrapper
 - TODO: Gmail + Calendar tools
 
