@@ -29,21 +29,12 @@ git clone https://github.com/yourusername/auto-agent.git
 cd auto-agent
 ```
 
-2. Create and activate a virtual environment:
+2. Set up Python environment:
 ```bash
+cd ai-core
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
 pip install -r requirements.txt
-```
-
-4. Set up environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your API keys
 ```
 
 ## 🔑 Required Environment Variables
@@ -51,33 +42,19 @@ cp .env.example .env
 - `OPENAI_API_KEY`: Your OpenAI API key
 - `ZAPIER_NLA_API_KEY`: Your Zapier NLA API key
 
-## 🎯 Usage
-
-1. Start the Flask server:
-```bash
-python app.py
-```
-
-2. Access the web interface at `http://localhost:5000`
-
-3. Example prompts:
-   - "Send a WhatsApp message to John: Meeting at 2pm"
-   - "Schedule a meeting with the team tomorrow at 3pm"
-   - "What's in my latest email?"
-
 ## 🏗️ Project Structure
 
 ```
 auto-agent/
-├── ai-core/
+├── ai-core/                # Python Flask Backend
 │   ├── agent.py           # Main agent logic
 │   ├── actions/           # Action handlers
 │   │   ├── zapier.py      # Zapier integration
 │   │   └── email_summarizer.py
 │   ├── app.py            # Flask application
 │   └── webhook_handler.py # Webhook handling
-├── requirements.txt      # Project dependencies
-└── README.md            # Project documentation
+├── requirements.txt       # Python dependencies
+└── README.md             # Project documentation
 ```
 
 ## 🤖 How It Works
@@ -130,6 +107,7 @@ auto-agent/
 
 Run the test suite:
 ```bash
+cd ai-core
 python -m pytest tests/
 ```
 
@@ -140,6 +118,10 @@ python -m pytest tests/
 - [ ] Add user authentication
 - [ ] Implement rate limiting
 - [ ] Add action history tracking
+- [ ] Add Java Spring Boot API Gateway
+- [ ] Implement database persistence
+- [ ] Add caching layer
+- [ ] Implement monitoring and metrics
 
 ## 🤝 Contributing
 
@@ -151,7 +133,7 @@ python -m pytest tests/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) (jk :P) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
