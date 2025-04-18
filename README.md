@@ -156,6 +156,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) (jk 
 ## 👨‍💻 Author
 
 Avinash - [GitHub](https://github.com/avi9ash)
+Cursor - vIbE CoDiNg :)
 
 ## 🙏 Acknowledgments
 
