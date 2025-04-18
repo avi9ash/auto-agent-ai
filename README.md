@@ -151,11 +151,11 @@ python -m pytest tests/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) (jk :P) file for details.
 
 ## 👨‍💻 Author
 
-Your Name - [GitHub](https://github.com/yourusername)
+Avinash - [GitHub](https://github.com/avi9ash)
 
 ## 🙏 Acknowledgments
 
